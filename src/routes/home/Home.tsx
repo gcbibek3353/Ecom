@@ -3,10 +3,11 @@ import Button from "../../components/Button.tsx";
 import FooterWithSocialLinks from "../../components/Footer.tsx";
 import { Link } from "react-router-dom";
 import img1 from "../../assets/images/delivary_img1.jpg";
+import GetStarted from "../../components/GetStarted.tsx";
 
 export function Home() {
   return (
-    <>
+    <div className="bg-slate-100">
       <Navbar />
       <div className="min-h-screen flex flex-col justify-center lg:flex-row items-center lg:px-32 px-5 bg-backgroundColor">
         <div className="flex flex-col items-center text-center lg:text-start lg:items-start w-full lg:w-3/4 space-y-4 ">
@@ -41,7 +42,8 @@ export function Home() {
         </div>
       </div>
 
+      <GetStarted />
       <FooterWithSocialLinks />
-    </>
+    </div>
   );
 }

@@ -32,7 +32,7 @@ export const router = (
       element={
         <UserProtectedRoute>
           <UserDashBoard />
-        </UserProtectedRoute>
+         </UserProtectedRoute>
       }
     />
 

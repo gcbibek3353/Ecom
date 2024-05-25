@@ -3,7 +3,7 @@ import { useUser } from "../../hooks/useUser";
 import { userState } from "../../recoil/atoms";
 import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/images/logo.png";
+import logo from "../../assets/images/logo.jpg";
 import Navbar from "../../components/Navbar";
 import FooterWithSocialLinks from "../../components/Footer";
 
