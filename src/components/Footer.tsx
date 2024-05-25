@@ -1,9 +1,10 @@
-import logo from '../assets/images/logo.png';
+import logo from '../assets/images/logo.jpg';
 // import { CiLocationOn } from "react-icons/ci";
 import { IoLocationSharp } from "react-icons/io5";
 import { IoMdMail } from "react-icons/io";
 // import { CiMail } from "react-icons/ci";
 import { IoIosCall } from "react-icons/io";
+import { Link } from 'react-router-dom';
 
 
 // const LINKS = [
@@ -74,13 +75,13 @@ function FooterWithSocialLinks() {
                                     <IoLocationSharp size={28} /><a href="#" className="hover:underline">eSaman Building,Adress1 , Adress Adress Kathmandu, Nepal</a>
                                 </li>
                                 <li className="mb-4 flex items-center gap-2">
-                                    <IoMdMail size={28} /> <a href="#" className="hover:underline">exampleMail@example.com</a>
+                                    <IoMdMail size={28} /> <a href="#" className="hover:underline">jyotidipitdip@gmail.com</a>
                                 </li>
                                 <li className="mb-4 flex items-center gap-2">
-                                    <IoMdMail size={28} /> <a href="#" className="hover:underline">exampleMail@example.com</a>
+                                    <IoMdMail size={28} /> <a href="#" className="hover:underline">jyotidipitdip@gmail.com</a>
                                 </li>
                                 <li className="mb-4 flex items-center gap-2">
-                                    <IoIosCall size={28} /> <a href="#" className="hover:underline">+97700000000</a>
+                                    <IoIosCall size={28} /> <a href="#" className="hover:underline">+977 9841121966</a>
                                 </li>
 
                             </ul>
@@ -89,7 +90,7 @@ function FooterWithSocialLinks() {
                 </div>
                 <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
                 <div className="sm:flex sm:items-center sm:justify-between">
-                    <span className="text-sm text-white sm:text-center dark:text-gray-400">© {currentYear} <a href="#" className="hover:underline">ESAMAN</a> | All Rights Reserved.
+                    <span className="text-sm text-white sm:text-center dark:text-gray-400">© {currentYear} <Link to="/" className="hover:underline">ESAMAN</Link> | All Rights Reserved.
                     </span>
                     <div className="flex mt-4 sm:justify-center sm:mt-0">
                         <a href="#" className="text-white hover:text-slate-200 dark:hover:text-white">
