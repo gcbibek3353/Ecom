@@ -4,8 +4,8 @@ import ContactMapAndForm from "../../components/ContactMapAndForm";
 export default function Contact() {
   return (
     <>
-    <Navbar />
-    <ContactMapAndForm />
+      <Navbar />
+      <ContactMapAndForm />
       <FooterWithSocialLinks />
     </>
   );
