@@ -1,9 +1,9 @@
 import { useRecoilState } from 'recoil';
-// import { useEffect } from 'react';
 import { db } from '../db/firebase';
 import { orderState } from '../recoil/atoms';
 import { Order, User } from '../db/types';
 import { doc, runTransaction, arrayUnion, getDocs, where, collection, query, getDoc } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 
 export const useOrder = () => {
   const [orders, setOrders] = useRecoilState(orderState);
@@ -37,13 +37,13 @@ export const useOrder = () => {
         setOrders((prevOrders) => [...prevOrders, newOrder]);
       });
   
-      console.log('Order added successfully');
+      toast.success('Order added successfully');
     } catch (error) {
+      toast.error('Error');
       console.error(error);
     }
   };
 
-  
   const getUserOrders = async (userId: string): Promise<void> => {
     const q = query(collection(db, 'orders'), where('userId', '==', userId));
 
@@ -55,10 +55,13 @@ export const useOrder = () => {
       });
 
       setOrders(userOrders);
+      toast.success('Orders retrieved successfully');
     } catch (error) {
+      toast.error('Error');
       console.error(error);
     }
   };
+
   const deleteOrder = async (orderId: string): Promise<void> => {
     const orderRef = doc(db, 'orders', orderId);
   
@@ -91,11 +94,13 @@ export const useOrder = () => {
         setOrders((prevOrders) => prevOrders.filter(order => order.id !== orderId));
       });
   
-      console.log('Order deleted successfully');
+      toast.success('Order deleted successfully');
     } catch (error) {
+      toast.error('Error');
       console.error(error);
     }
   };
+
   const updateOrder = async (orderId: string, updatedOrderData: Partial<Order>): Promise<void> => {
     const orderRef = doc(db, 'orders', orderId);
   
@@ -121,8 +126,9 @@ export const useOrder = () => {
         );
       });
   
-      console.log('Order updated successfully');
+      toast.success('Order updated successfully');
     } catch (error) {
+      toast.error('Error');
       console.error(error);
     }
   };
@@ -143,10 +149,12 @@ export const useOrder = () => {
       }
 
       setOrders(allOrders);
+    
     } catch (error) {
+      toast.error('Error');
       console.error(error);
     }
   };
 
-  return { orders, addOrder, getUserOrders, getAllOrders,updateOrder,deleteOrder };
+  return { orders, addOrder, getUserOrders, getAllOrders, updateOrder, deleteOrder };
 };

@@ -5,6 +5,7 @@ import { userState } from '../recoil/atoms';
 import { User } from '../db/types';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, UserCredential } from 'firebase/auth';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { toast } from 'react-toastify';
 
 export const useUser = () => {
   const [user, setUser] = useRecoilState(userState);
@@ -24,7 +25,7 @@ export const useUser = () => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [setUser]);
 
   const registerUser = async (email: string, password: string, userInfo: Omit<User, 'email' | 'orders' | 'id'>): Promise<void> => {
     try {
@@ -36,20 +37,43 @@ export const useUser = () => {
       await setDoc(doc(db, 'users', userId), newUser);
 
       setUser(newUser);
-    } catch (error) {
+      toast.success("Successfully registered and logged in");
+    } catch (error: any) {
+      switch (error.code) {
+        case 'auth/email-already-in-use':
+          toast.error("Email already in use. Please use a different email.");
+          break;
+        case 'auth/invalid-email':
+          toast.error("Invalid email format.");
+          break;
+        case 'auth/weak-password':
+          toast.error("Password is too weak.");
+          break;
+        default:
+          toast.error("Registration failed: " + error.message);
+      }
       console.error(error);
     }
   };
 
   const loginUser = async (email: string, password: string): Promise<void> => {
     try {
-      const userCredential: UserCredential = await signInWithEmailAndPassword(auth, email, password);
+
+      if(email && password){
+
+        
+        const userCredential: UserCredential = await signInWithEmailAndPassword(auth, email, password);
       const userId = userCredential.user.uid;
       const userDoc = await getDoc(doc(db, 'users', userId));
       if (userDoc.exists()) {
         setUser({ id: userId, ...userDoc.data() } as User);
+        toast.success("Successfully logged in");
       }
-    } catch (error) {
+    }else{
+      toast.error("Please enter all data")
+    }
+    } catch (error: any) {
+      toast.error("Error!!")
       console.error(error);
     }
   };
@@ -58,7 +82,9 @@ export const useUser = () => {
     try {
       await signOut(auth);
       setUser(null);
-    } catch (error) {
+      toast.success("Successfully logged out");
+    } catch (error: any) {
+      toast.error("Logout failed: " + error.message);
       console.error(error);
     }
   };
@@ -68,8 +94,10 @@ export const useUser = () => {
       await updateDoc(doc(db, 'users', userId), userData);
       if (user) {
         setUser({ ...user, ...userData });
+        toast.success("User information updated successfully");
       }
-    } catch (error) {
+    } catch (error: any) {
+      toast.error("Update failed: " + error.message);
       console.error(error);
     }
   };
