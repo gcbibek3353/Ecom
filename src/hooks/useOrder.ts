@@ -55,7 +55,6 @@ export const useOrder = () => {
       });
 
       setOrders(userOrders);
-      toast.success('Orders retrieved successfully');
     } catch (error) {
       toast.error('Error');
       console.error(error);
